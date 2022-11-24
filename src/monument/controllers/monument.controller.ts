@@ -1,10 +1,12 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
   Get,
   HttpCode,
   HttpStatus,
+  NotFoundException,
   Param,
   Post,
   Put,
@@ -21,7 +23,11 @@ export class MonumetController {
   ) {}
 
   @Get('/')
-  getMonuments() {
+  async getMonuments() {
+    const monument: Monument[] = await this.monumentRepository.find();
+    if (monument.length == 0) {
+      throw new BadRequestException('No existe la lista de monumentos');
+    }
     return this.monumentRepository.find();
   }
 
@@ -32,20 +38,47 @@ export class MonumetController {
   }
 
   @Get('/:id')
-  findOne(@Param('id') id: number) {
-    return this.monumentRepository.findOneById(id);
+  async findOne(@Param('id') id: number): Promise<Monument> {
+    const monument: Monument = await this.monumentRepository.findOne({
+      where: { id: id },
+    });
+    if (monument == undefined) {
+      throw new NotFoundException(
+        'No se ha encontrado el monumento con id: ' + id,
+      );
+    }
+    return monument;
   }
 
   @Put('/:id')
   @HttpCode(HttpStatus.OK)
   async update(@Param('id') id: number, @Body() monument: Monument) {
-    await this.monumentRepository.update(id, monument);
-    return this.monumentRepository.findOneById(id);
+    const monumentFind: Monument = await this.monumentRepository.findOne({
+      where: { id: id },
+    });
+    if (monumentFind == undefined) {
+      throw new NotFoundException(
+        'No se ha encontrado el monumento con id: ' + id,
+      );
+    } else {
+      await this.monumentRepository.update(id, monument);
+      return this.monumentRepository.findOne({
+        where: { id: id },
+      });
+    }
   }
 
   @Delete('/:id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  remove(@Param('id') id: number) {
-    return this.monumentRepository.delete(id);
+  async remove(@Param('id') id: number) {
+    const monument: Monument = await this.monumentRepository.findOne({
+      where: { id: id },
+    });
+    if (monument == undefined) {
+      throw new NotFoundException(
+        'No se ha encontrado el monumento con id: ' + id,
+      );
+    }
+    return this.monumentRepository.delete(monument);
   }
 }
