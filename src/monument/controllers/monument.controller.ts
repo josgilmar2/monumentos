@@ -38,8 +38,9 @@ export class MonumetController {
 
   @Put('/:id')
   @HttpCode(HttpStatus.OK)
-  update(@Param('id') id: number, @Body() monument: Monument) {
-    return this.monumentRepository.update(id, monument);
+  async update(@Param('id') id: number, @Body() monument: Monument) {
+    await this.monumentRepository.update(id, monument);
+    return this.monumentRepository.findOneById(id);
   }
 
   @Delete('/:id')
