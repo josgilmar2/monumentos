@@ -1,0 +1,127 @@
+{
+	"info": {
+		"_postman_id": "f3fdfc0b-7177-4bfe-8494-e17cd7d76f92",
+		"name": "NestJS Monumentos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24106087"
+	},
+	"item": [
+		{
+			"name": "Get All Monuments",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/monument/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"monument",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Monument",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"code\": \"IT\",\n    \"country\": \"Italia\",\n    \"city\": \"Roma\",\n    \"name\": \"Coliseo Romano\",\n    \"description\": \"El Coliseo Romano es muy chulo y es muy bonito tanto por dentro como por fuera\",\n    \"urlPhoto\": \"https://historia.nationalgeographic.com.es/medio/2018/03/01/coliseo-romano_16022ed4_1280x853.jpg\",\n    \"loc\": \"43.4445234, -4.563234\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/monument",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"monument"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get One Monument",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/monument/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"monument",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit Monument",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"code\": \"DE\",\r\n    \"country\": \"Alemania\",\r\n    \"city\": \"Berlín\",\r\n    \"name\": \"Muro de Berlín\",\r\n    \"description\": \"El Muro de Berlín dividía la ciudad de Berlín durante la Guerra Fría\",\r\n    \"urlPhoto\": \"https://upload.wikimedia.org/wikipedia/commons/5/5d/Berlinermauer.jpg\",\r\n    \"loc\": \"45.4646463, -2.34564564\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/monument/8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"monument",
+						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Momument",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/monument/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"monument",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
