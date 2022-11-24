@@ -12,7 +12,6 @@ import {
 import { Monument } from '../entities/monument.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MonumentRepository } from '../repository/monument.repository';
-import { MonumentDto } from '../dto/monument.dto';
 
 @Controller('monument')
 export class MonumetController {
@@ -28,23 +27,24 @@ export class MonumetController {
 
   @Post('/')
   @HttpCode(HttpStatus.CREATED)
-  create(@Body() monument: MonumentDto) {
+  create(@Body() monument: Monument) {
     return this.monumentRepository.save(monument);
   }
 
   @Get('/:id')
   findOne(@Param('id') id: number) {
-    return this.monumentRepository.findOne({ where: { id: id } });
+    return this.monumentRepository.findOneById(id);
   }
 
   @Put('/:id')
-  update(@Param('id') id: number, @Body() monument: MonumentDto) {
-    return this.monumentRepository.save({ ...monument, id });
+  @HttpCode(HttpStatus.OK)
+  update(@Param('id') id: number, @Body() monument: Monument) {
+    return this.monumentRepository.update(id, monument);
   }
 
   @Delete('/:id')
   @HttpCode(HttpStatus.NO_CONTENT)
   remove(@Param('id') id: number) {
-    return this.monumentRepository.findOne({ where: { id: id } });
+    return this.monumentRepository.delete(id);
   }
 }

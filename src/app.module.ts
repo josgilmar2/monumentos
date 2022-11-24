@@ -7,11 +7,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'postgres',
+      type: 'mysql',
       host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: '1',
+      port: 3306,
+      username: 'root',
+      database: 'monumentos',
+      autoLoadEntities: true,
     }),
     MonumentModule,
   ],
